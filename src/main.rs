@@ -1,7 +1,6 @@
 use mpris::{PlaybackStatus, PlayerFinder};
 use std::fs::File;
 use std::io::prelude::*;
-use std::path::Path;
 
 type Ps = PlaybackStatus;
 
@@ -13,7 +12,8 @@ fn main() {
 
     let mut event = player.events().expect("D-Bus yay");
 
-    let path = Path::new("/home/snowlire/.local/state/music.txt");
+    let refpath = home::home_dir().unwrap().join(".local/state/music.txt");
+    let path = refpath.as_path();
     let display = path.display();
 
     loop {
