@@ -27,7 +27,12 @@ fn main() {
             Ok(file) => file,
         };
 
-        match player.get_playback_status().unwrap() {
+        let status = match player.get_playback_status() {
+            Err(_) => Ps::Stopped,
+            Ok(stat) => stat,
+        };
+
+        match status {
             Ps::Paused | Ps::Stopped => {
                 let _ = file.write(b"Stopped/Paused");
             }
